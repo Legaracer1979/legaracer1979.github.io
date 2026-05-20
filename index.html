@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luis Galarraga — BI & Data Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--border:#1e1e2e;--accent:#00c8ff;--accent2:#7b61ff;--text:#e8e8f0;--muted:#6b6b80;--card:#13131c}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,15,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--text);text-decoration:none}
+.logo span{color:var(--accent)}
+.nav-btn{padding:0.5rem 1rem;background:var(--accent);color:#000;border-radius:6px;font-size:0.82rem;font-weight:500;text-decoration:none}
+#hero{min-height:100vh;display:flex;align-items:center;padding:7rem 1.5rem 3rem;max-width:900px;margin:0 auto}
+.tag{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.2);border-radius:100px;padding:0.3rem 1rem;font-size:0.75rem;font-weight:500;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1.5rem}
+.tag::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;display:inline-block}
+h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.5rem,8vw,5.5rem);line-height:1;letter-spacing:-0.04em}
+h1 .grad{display:block;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.desc{margin-top:1.5rem;font-size:1rem;color:var(--muted);max-width:520px;line-height:1.8}
+.cta{margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;padding:0.8rem 1.6rem;border-radius:6px;font-size:0.9rem;font-weight:500;text-decoration:none;transition:all 0.2s}
+.btn-p{background:var(--accent);color:#000}
+.btn-p:hover{background:#fff}
+.btn-g{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-g:hover{border-color:var(--accent);color:var(--accent)}
+.stats{margin-top:3.5rem;display:flex;gap:2.5rem;flex-wrap:wrap}
+.snum{font-family:'Syne',sans-serif;font-weight:700;font-size:1.8rem;color:var(--text)}
+.snum span{color:var(--accent)}
+.slbl{font-size:0.75rem;color:var(--muted);letter-spacing:0.05em;text-transform:uppercase}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);max-width:900px;margin:0 auto}
+.sec{padding:5rem 1.5rem;max-width:900px;margin:0 auto}
+.sec-lbl{font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.8rem}
+h2{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.6rem,3vw,2.3rem);line-height:1.15;letter-spacing:-0.03em;color:var(--text);margin-bottom:1.5rem}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.ptxt{font-size:0.95rem;color:var(--muted);line-height:1.9;margin-bottom:1rem}
+.skills{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:1rem}
+.chip{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:0.65rem 0.9rem;font-size:0.83rem;color:var(--text);display:flex;align-items:center;gap:0.5rem}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:var(--accent)}
+.dot.p{background:var(--accent2)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;margin-top:2.5rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.6rem;transition:all 0.3s;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.card:hover{border-color:rgba(0,200,255,0.3);transform:translateY(-3px)}
+.card:hover::before{transform:scaleX(1)}
+.icon{width:40px;height:40px;background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1.2rem}
+.ctitle{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:0.5rem}
+.cdesc{font-size:0.84rem;color:var(--muted);line-height:1.8;margin-bottom:1rem}
+.tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem}
+.tag2{font-size:0.7rem;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:4px;background:rgba(123,97,255,0.1);color:var(--accent2);border:1px solid rgba(123,97,255,0.2)}
+.tag2.c{background:rgba(0,200,255,0.08);color:var(--accent);border-color:rgba(0,200,255,0.2)}
+.clink{font-size:0.82rem;font-weight:500;color:var(--accent);text-decoration:none}
+.timeline{margin-top:2.5rem;position:relative;padding-left:1.8rem}
+.timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--accent),transparent)}
+.ti{position:relative;padding-bottom:2.2rem;padding-left:1.2rem}
+.ti::before{content:'';position:absolute;left:-2.1rem;top:8px;width:8px;height:8px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);box-shadow:0 0 0 2px var(--accent)}
+.tper{font-size:0.75rem;color:var(--accent);font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.3rem}
+.trole{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:var(--text);margin-bottom:0.15rem}
+.tco{font-size:0.85rem;color:var(--muted);margin-bottom:0.5rem}
+.tdesc{font-size:0.85rem;color:var(--muted);line-height:1.8}
+.cbox{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;max-width:580px;margin:0 auto;text-align:center}
+.ctit{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.6rem,4vw,2.2rem);letter-spacing:-0.03em;color:var(--text);margin-bottom:1rem}
+.ctit span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.csub{font-size:0.92rem;color:var(--muted);margin-bottom:2rem;line-height:1.8}
+.clinks{display:flex;flex-direction:column;gap:0.8rem;align-items:center}
+.citem{display:flex;align-items:center;gap:0.7rem;font-size:0.9rem;color:var(--muted);text-decoration:none;transition:color 0.2s}
+.citem:hover{color:var(--accent)}
+.cico{width:34px;height:34px;background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center}
+footer{border-top:1px solid var(--border);padding:1.5rem;text-align:center;font-size:0.78rem;color:var(--muted)}
+footer span{color:var(--accent)}
+@media(max-width:640px){.about-grid{grid-template-columns:1fr}.stats{gap:1.5rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="logo">LG<span>.</span></a>
+  <a href="mailto:galarraga.luis@gmail.com" class="nav-btn">Contáctame</a>
+</nav>
+
+<section id="hero">
+  <div>
+    <div class="tag">Disponible para proyectos remotos</div>
+    <h1>Luis Galarraga<span class="grad">BI & Analytics</span></h1>
+    <p class="desc">Transformo datos crudos en decisiones estratégicas. Especialista en Power BI, DAX y arquitecturas de datos con 5+ años en operaciones críticas y gestión de KPIs.</p>
+    <div class="cta">
+      <a href="#projects" class="btn btn-p">Ver proyectos →</a>
+      <a href="#contact" class="btn btn-g">Conversemos</a>
+    </div>
+    <div class="stats">
+      <div><div class="snum">5<span>+</span></div><div class="slbl">Años en WFM & BI</div></div>
+      <div><div class="snum">6<span>+</span></div><div class="slbl">Proyectos</div></div>
+      <div><div class="snum">4<span>+</span></div><div class="slbl">Sectores</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="sec" id="about">
+  <div class="about-grid">
+    <div>
+      <div class="sec-lbl">Sobre mí</div>
+      <h2>Datos que cuentan historias. Dashboards que impulsan acción.</h2>
+      <p class="ptxt">Consultor de Data Analytics y desarrollador BI en la Isla de Margarita, Venezuela. Combino ingeniería de datos con diseño UX analítico — el mejor dashboard es el que se entiende en 5 segundos.</p>
+      <p class="ptxt">Más de 5 años como Mission Control Analyst en Teleperformance Chile, tomando decisiones en tiempo real con datos de cientos de agentes.</p>
+    </div>
+    <div>
+      <div class="sec-lbl">Stack técnico</div>
+      <div class="skills">
+        <div class="chip"><span class="dot"></span>Power BI & DAX</div>
+        <div class="chip"><span class="dot"></span>Power Query</div>
+        <div class="chip"><span class="dot p"></span>Python (Pandas)</div>
+        <div class="chip"><span class="dot p"></span>Star Schema</div>
+        <div class="chip"><span class="dot"></span>Excel Avanzado</div>
+        <div class="chip"><span class="dot"></span>Salesforce CRM</div>
+        <div class="chip"><span class="dot p"></span>UX Analítico</div>
+        <div class="chip"><span class="dot p"></span>KPI Management</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="sec" id="projects">
+  <div class="sec-lbl">Portafolio</div>
+  <h2>Proyectos destacados</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="icon">🚗</div>
+      <div class="ctitle">Gemelo Digital — Rent a Car</div>
+      <p class="cdesc">End-to-End con Python y Power BI. +1.500 transacciones sintéticas, modelo estrella y Smart Covers con DAX.</p>
+      <div class="tags"><span class="tag2 c">Power BI</span><span class="tag2">Python</span><span class="tag2 c">DAX</span></div>
+      <a href="https://www.youtube.com/watch?v=iADxwH2Oxic" target="_blank" class="clink">Ver demo →</a>
+    </div>
+    <div class="card">
+      <div class="icon">🏨</div>
+      <div class="ctitle">Monitor Turístico — Margarita 2026</div>
+      <p class="cdesc">Dashboard BI para la recuperación turística. Conectividad aérea, estacionalidad y KPIs de retorno.</p>
+      <div class="tags"><span class="tag2 c">Power BI</span><span class="tag2">Turismo</span><span class="tag2 c">Forecasting</span></div>
+      <a href="https://www.youtube.com/watch?v=jIp_ap6ld40" target="_blank" class="clink">Ver demo →</a>
+    </div>
+    <div class="card">
+      <div class="icon">🏢</div>
+      <div class="ctitle">Monitor Inmobiliario — Real Estate</div>
+      <p class="cdesc">3 vistas ejecutivas. Hunters vs. Closers, estacionalidad de alquileres y matrices de eficiencia.</p>
+      <div class="tags"><span class="tag2 c">Power BI</span><span class="tag2">Real Estate</span><span class="tag2 c">ETL</span></div>
+      <a href="https://www.youtube.com/watch?v=chtnMSdURJQ" target="_blank" class="clink">Ver demo →</a>
+    </div>
+    <div class="card">
+      <div class="icon">📞</div>
+      <div class="ctitle">Command Center — Call Center</div>
+      <p class="cdesc">Del panorama general al error crítico en 2 clics. Semáforos condicionales y matriz de calor.</p>
+      <div class="tags"><span class="tag2 c">Power BI</span><span class="tag2">WFM</span><span class="tag2 c">UX</span></div>
+      <a href="https://www.youtube.com/watch?v=eE4puEyllHM" target="_blank" class="clink">Ver demo →</a>
+    </div>
+    <div class="card">
+      <div class="icon">🎸</div>
+      <div class="ctitle">Titanes del Rock</div>
+      <p class="cdesc">Dark mode con ejes logarítmicos. Gigantes vs. nicho, código dual Físico/Digital y normalización histórica.</p>
+      <div class="tags"><span class="tag2 c">Power BI</span><span class="tag2">Dark Mode</span><span class="tag2 c">Log Scale</span></div>
+      <a href="https://www.youtube.com/watch?v=5ehfou0FM4s" target="_blank" class="clink">Ver demo →</a>
+    </div>
+    <div class="card">
+      <div class="icon">🍔</div>
+      <div class="ctitle">Digital Twin — Burger Franchise</div>
+      <p class="cdesc">Semáforo visual dinámico: si una máquina falla, el dashboard cambia imagen en tiempo real con DAX SWITCH.</p>
+      <div class="tags"><span class="tag2 c">Power BI</span><span class="tag2">Digital Twin</span><span class="tag2 c">DAX</span></div>
+      <a href="https://sites.google.com/view/portafolio-luis-galarraga/inicio" target="_blank" class="clink">Ver portafolio →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="sec" id="experience">
+  <div class="sec-lbl">Trayectoria</div>
+  <h2>Experiencia profesional</h2>
+  <div class="timeline">
+    <div class="ti">
+      <div class="tper">2025 — Presente</div>
+      <div class="trole">Desarrollador BI & Consultor de Data Analytics</div>
+      <div class="tco">Legaracer · Freelance / Remoto</div>
+      <div class="tdesc">Ecosistemas analíticos end-to-end en Power BI. Sectores: inmobiliario, turístico, retail y flotas. DAX/Power Query con enfoque en UX analítico.</div>
+    </div>
+    <div class="ti">
+      <div class="tper">2019 — 2024 · 5 años</div>
+      <div class="trole">Mission Control Analyst — Workforce Management</div>
+      <div class="tco">Teleperformance · Chile</div>
+      <div class="tdesc">Control de tráfico en tiempo real, reportes ejecutivos en Power BI y Excel, datos desde Salesforce. KPIs cumplidos en 2020, 2021 y 2023.</div>
+    </div>
+    <div class="ti">
+      <div class="tper">2017 — 2018</div>
+      <div class="trole">Supervisor ATC & Post Venta Corporativa</div>
+      <div class="tco">Corporación Digitel C.A. · Venezuela</div>
+      <div class="tdesc">Liderazgo de 10 especialistas. KPIs, SAP y fidelización corporativa al 100% en 2017.</div>
+    </div>
+    <div class="ti">
+      <div class="tper">2018 — 2019</div>
+      <div class="trole">Administrador de Cafetería</div>
+      <div class="tco">Tavola / Walmart · Chile</div>
+      <div class="tdesc">Gestión de 4 colaboradores, inventarios y metas anuales de ventas 2018 cumplidas al 100%.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="sec" id="contact">
+  <div class="cbox">
+    <div class="sec-lbl" style="text-align:center;margin-bottom:0.8rem">Contacto</div>
+    <div class="ctit">¿Tienes datos que <span>necesitan hablar</span>?</div>
+    <p class="csub">Busco oportunidades remotas como Data Analyst o BI Developer. Si tienes un proyecto o vacante, conversemos.</p>
+    <div class="clinks">
+      <a href="mailto:galarraga.luis@gmail.com" class="citem"><span class="cico">✉️</span>galarraga.luis@gmail.com</a>
+      <a href="https://www.linkedin.com/in/luis-galarraga-analytics" target="_blank" class="citem"><span class="cico">💼</span>linkedin.com/in/luis-galarraga-analytics</a>
+      <a href="tel:+584226350015" class="citem"><span class="cico">📱</span>+58 422 635 0015</a>
+    </div>
+    <a href="mailto:galarraga.luis@gmail.com" class="btn btn-p" style="margin-top:2rem">Escribirme ahora →</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <span>Luis Eduardo Galarraga Arriaga</span> · Isla de Margarita, Venezuela · Disponible para trabajo remoto</p>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.style.opacity=1 }), {threshold:0.1});
+document.querySelectorAll('.card,.ti').forEach(el => { el.style.opacity=0; el.style.transition='opacity 0.6s ease'; obs.observe(el); });
+</script>
+</body>
+</html>
