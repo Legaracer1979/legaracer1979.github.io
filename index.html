@@ -15,9 +15,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 1.5rem;display:
 .logo span{color:var(--accent)}
 .nav-btn{padding:0.5rem 1rem;background:var(--accent);color:#000;border-radius:6px;font-size:0.82rem;font-weight:500;text-decoration:none}
 #hero{min-height:100vh;display:flex;align-items:center;padding:7rem 1.5rem 3rem;max-width:900px;margin:0 auto}
-.tag{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.2);border-radius:100px;padding:0.3rem 1rem;font-size:0.75rem;font-weight:500;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1.5rem}
-.tag::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;display:inline-block}
-h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.8rem,5vw,3.5rem);line-height:1;letter-spacing:-0.04em}
+.htag{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.2);border-radius:100px;padding:0.3rem 1rem;font-size:0.75rem;font-weight:500;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1.5rem}
+.htag::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;display:inline-block}
+h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.8rem,5vw,3.5rem);line-height:1.1;letter-spacing:-0.04em}
 h1 .grad{display:block;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .desc{margin-top:1.5rem;font-size:1rem;color:var(--muted);max-width:520px;line-height:1.8}
 .cta{margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap}
@@ -41,16 +41,18 @@ h2{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.6rem,3vw,2.3r
 .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:var(--accent)}
 .dot.p{background:var(--accent2)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;margin-top:2.5rem}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.6rem;transition:all 0.3s;position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:all 0.3s;position:relative}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform 0.3s;z-index:1}
 .card:hover{border-color:rgba(0,200,255,0.3);transform:translateY(-3px)}
 .card:hover::before{transform:scaleX(1)}
-.icon{width:40px;height:40px;background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1.2rem}
+.card-img{width:100%;height:160px;object-fit:cover;display:block;border-bottom:1px solid var(--border)}
+.card-body{padding:1.4rem}
+.icon{width:40px;height:40px;background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1rem}
 .ctitle{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:0.5rem}
 .cdesc{font-size:0.84rem;color:var(--muted);line-height:1.8;margin-bottom:1rem}
 .tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem}
-.tag2{font-size:0.7rem;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:4px;background:rgba(123,97,255,0.1);color:var(--accent2);border:1px solid rgba(123,97,255,0.2)}
-.tag2.c{background:rgba(0,200,255,0.08);color:var(--accent);border-color:rgba(0,200,255,0.2)}
+.tag{font-size:0.7rem;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:4px;background:rgba(123,97,255,0.1);color:var(--accent2);border:1px solid rgba(123,97,255,0.2)}
+.tag.c{background:rgba(0,200,255,0.08);color:var(--accent);border-color:rgba(0,200,255,0.2)}
 .clink{font-size:0.82rem;font-weight:500;color:var(--accent);text-decoration:none}
 .timeline{margin-top:2.5rem;position:relative;padding-left:1.8rem}
 .timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--accent),transparent)}
@@ -82,7 +84,7 @@ footer span{color:var(--accent)}
 
 <section id="hero">
   <div>
-    <div class="tag">Disponible para proyectos remotos</div>
+    <div class="htag">Disponible para proyectos remotos</div>
     <h1>Luis Galarraga<span class="grad">BI & Analytics</span></h1>
     <p class="desc">Transformo datos crudos en decisiones estratégicas. Especialista en Power BI, DAX y arquitecturas de datos con 5+ años en operaciones críticas y gestión de KPIs.</p>
     <div class="cta">
@@ -129,48 +131,67 @@ footer span{color:var(--accent)}
   <div class="sec-lbl">Portafolio</div>
   <h2>Proyectos destacados</h2>
   <div class="cards">
+
     <div class="card">
-      <div class="icon">🚗</div>
-      <div class="ctitle">Gemelo Digital — Rent a Car</div>
-      <p class="cdesc">End-to-End con Python y Power BI. +1.500 transacciones sintéticas, modelo estrella y Smart Covers con DAX.</p>
-      <div class="tags"><span class="tag2 c">Power BI</span><span class="tag2">Python</span><span class="tag2 c">DAX</span></div>
-      <a href="https://www.youtube.com/watch?v=iADxwH2Oxic" target="_blank" class="clink">Ver demo →</a>
+      <img class="card-img" src="https://i.postimg.cc/3kTzdNBC/dashboard-gemelo-digital.png" alt="Gemelo Digital Rent a Car">
+      <div class="card-body">
+        <div class="ctitle">Gemelo Digital — Rent a Car</div>
+        <p class="cdesc">End-to-End con Python y Power BI. +1.500 transacciones sintéticas, modelo estrella y Smart Covers con DAX.</p>
+        <div class="tags"><span class="tag c">Power BI</span><span class="tag">Python</span><span class="tag c">DAX</span></div>
+        <a href="https://www.youtube.com/watch?v=iADxwH2Oxic" target="_blank" class="clink">Ver demo →</a>
+      </div>
     </div>
+
     <div class="card">
-      <div class="icon">🏨</div>
-      <div class="ctitle">Monitor Turístico — Margarita 2026</div>
-      <p class="cdesc">Dashboard BI para la recuperación turística. Conectividad aérea, estacionalidad y KPIs de retorno.</p>
-      <div class="tags"><span class="tag2 c">Power BI</span><span class="tag2">Turismo</span><span class="tag2 c">Forecasting</span></div>
-      <a href="https://www.youtube.com/watch?v=jIp_ap6ld40" target="_blank" class="clink">Ver demo →</a>
+      <img class="card-img" src="https://i.postimg.cc/hXBNfvr9/dashboard-turismo.png" alt="Monitor Turístico Margarita">
+      <div class="card-body">
+        <div class="ctitle">Monitor Turístico — Margarita 2026</div>
+        <p class="cdesc">Dashboard BI para la recuperación turística. Conectividad aérea, estacionalidad y KPIs de retorno.</p>
+        <div class="tags"><span class="tag c">Power BI</span><span class="tag">Turismo</span><span class="tag c">Forecasting</span></div>
+        <a href="https://www.youtube.com/watch?v=jIp_ap6ld40" target="_blank" class="clink">Ver demo →</a>
+      </div>
     </div>
+
     <div class="card">
-      <div class="icon">🏢</div>
-      <div class="ctitle">Monitor Inmobiliario — Real Estate</div>
-      <p class="cdesc">3 vistas ejecutivas. Hunters vs. Closers, estacionalidad de alquileres y matrices de eficiencia.</p>
-      <div class="tags"><span class="tag2 c">Power BI</span><span class="tag2">Real Estate</span><span class="tag2 c">ETL</span></div>
-      <a href="https://www.youtube.com/watch?v=chtnMSdURJQ" target="_blank" class="clink">Ver demo →</a>
+      <img class="card-img" src="https://i.postimg.cc/WdwCrVW8/Mercado-Inmobiliario-Margarita-Dashboard.png" alt="Monitor Inmobiliario">
+      <div class="card-body">
+        <div class="ctitle">Monitor Inmobiliario — Real Estate</div>
+        <p class="cdesc">3 vistas ejecutivas. Hunters vs. Closers, estacionalidad de alquileres y matrices de eficiencia.</p>
+        <div class="tags"><span class="tag c">Power BI</span><span class="tag">Real Estate</span><span class="tag c">ETL</span></div>
+        <a href="https://www.youtube.com/watch?v=chtnMSdURJQ" target="_blank" class="clink">Ver demo →</a>
+      </div>
     </div>
+
     <div class="card">
-      <div class="icon">📞</div>
-      <div class="ctitle">Command Center — Call Center</div>
-      <p class="cdesc">Del panorama general al error crítico en 2 clics. Semáforos condicionales y matriz de calor.</p>
-      <div class="tags"><span class="tag2 c">Power BI</span><span class="tag2">WFM</span><span class="tag2 c">UX</span></div>
-      <a href="https://www.youtube.com/watch?v=eE4puEyllHM" target="_blank" class="clink">Ver demo →</a>
+      <img class="card-img" src="https://i.postimg.cc/w1pn7MV5/dashboard-call-center.png" alt="Command Center Call Center">
+      <div class="card-body">
+        <div class="ctitle">Command Center — Call Center</div>
+        <p class="cdesc">Del panorama general al error crítico en 2 clics. Semáforos condicionales y matriz de calor.</p>
+        <div class="tags"><span class="tag c">Power BI</span><span class="tag">WFM</span><span class="tag c">UX</span></div>
+        <a href="https://www.youtube.com/watch?v=eE4puEyllHM" target="_blank" class="clink">Ver demo →</a>
+      </div>
     </div>
+
     <div class="card">
-      <div class="icon">🎸</div>
-      <div class="ctitle">Titanes del Rock</div>
-      <p class="cdesc">Dark mode con ejes logarítmicos. Gigantes vs. nicho, código dual Físico/Digital y normalización histórica.</p>
-      <div class="tags"><span class="tag2 c">Power BI</span><span class="tag2">Dark Mode</span><span class="tag2 c">Log Scale</span></div>
-      <a href="https://www.youtube.com/watch?v=5ehfou0FM4s" target="_blank" class="clink">Ver demo →</a>
+      <img class="card-img" src="https://i.postimg.cc/FYV8cvWV/imagen-dashboard-musica.png" alt="Titanes del Rock">
+      <div class="card-body">
+        <div class="ctitle">Titanes del Rock</div>
+        <p class="cdesc">Dark mode con ejes logarítmicos. Gigantes vs. nicho, código dual Físico/Digital y normalización histórica.</p>
+        <div class="tags"><span class="tag c">Power BI</span><span class="tag">Dark Mode</span><span class="tag c">Log Scale</span></div>
+        <a href="https://www.youtube.com/watch?v=5ehfou0FM4s" target="_blank" class="clink">Ver demo →</a>
+      </div>
     </div>
+
     <div class="card">
-      <div class="icon">🍔</div>
-      <div class="ctitle">Digital Twin — Burger Franchise</div>
-      <p class="cdesc">Semáforo visual dinámico: si una máquina falla, el dashboard cambia imagen en tiempo real con DAX SWITCH.</p>
-      <div class="tags"><span class="tag2 c">Power BI</span><span class="tag2">Digital Twin</span><span class="tag2 c">DAX</span></div>
-      <a href="https://sites.google.com/view/portafolio-luis-galarraga/inicio" target="_blank" class="clink">Ver portafolio →</a>
+      <img class="card-img" src="https://i.postimg.cc/5XVD6y3m/dashboard-franqui.png" alt="Digital Twin Burger Franchise">
+      <div class="card-body">
+        <div class="ctitle">Digital Twin — Burger Franchise</div>
+        <p class="cdesc">Semáforo visual dinámico: si una máquina falla, el dashboard cambia imagen en tiempo real con DAX SWITCH.</p>
+        <div class="tags"><span class="tag c">Power BI</span><span class="tag">Digital Twin</span><span class="tag c">DAX</span></div>
+        <a href="https://youtu.be/csh0Jk00JL4" target="_blank" class="clink">Ver demo →</a>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -202,7 +223,7 @@ footer span{color:var(--accent)}
       <div class="tper">2018 — 2019</div>
       <div class="trole">Administrador de Cafetería</div>
       <div class="tco">Tavola / Walmart · Chile</div>
-      <div class="tdesc">Gestión de 4 colaboradores, inventarios y metas anuales de ventas 2018 cumplidas al 100%.</div>
+      <div class="tdesc">Gestión de 4 colaboradores, inventarios y metas anuales cumplidas al 100% en 2018.</div>
     </div>
   </div>
 </section>
@@ -228,8 +249,8 @@ footer span{color:var(--accent)}
 </footer>
 
 <script>
-const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.style.opacity=1 }), {threshold:0.1});
-document.querySelectorAll('.card,.ti').forEach(el => { el.style.opacity=0; el.style.transition='opacity 0.6s ease'; obs.observe(el); });
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.style.opacity=1}),{threshold:0.1});
+document.querySelectorAll('.card,.ti').forEach(el=>{el.style.opacity=0;el.style.transition='opacity 0.6s ease';obs.observe(el);});
 </script>
 </body>
 </html>
