@@ -19,6 +19,7 @@
   
 
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>  
 <style>
 :root{--bg:#0a0a0f;--border:#1e1e2e;--accent:#00c8ff;--accent2:#7b61ff;--text:#e8e8f0;--muted:#6b6b80;--card:#13131c}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -245,7 +246,37 @@ footer span{color:var(--accent)}
 </section>
 
 <div class="divider"></div>
+<section class="sec" id="demo">
+  <div class="sec-lbl" style="text-align:center">DEMO INTERACTIVA</div>
+  <h2 style="text-align:center;margin-bottom:0.5rem">Cuéntanos tu negocio, te contamos tu historia</h2>
+  <p class="ptxt" style="text-align:center;max-width:600px;margin:0 auto 2.5rem">Ingresa tus datos y descubre qué dicen sobre tu negocio.</p>
 
+  <div class="cbox" style="max-width:800px">
+    <label class="demo-label">Tipo de negocio</label>
+    <input id="d-tipo" class="demo-input" type="text" placeholder="Ej: Almacén de libros">
+
+    <label class="demo-label">¿Qué quieres analizar?</label>
+    <input id="d-objetivo" class="demo-input" type="text" placeholder="Ej: Ganancias mes a mes">
+
+    <label class="demo-label">Tus valores (etiqueta y número)</label>
+    <div id="d-rows">
+      <div class="demo-row"><input class="demo-input demo-half" placeholder="Enero"><input class="demo-input demo-half" type="number" placeholder="1200"></div>
+      <div class="demo-row"><input class="demo-input demo-half" placeholder="Febrero"><input class="demo-input demo-half" type="number" placeholder="1850"></div>
+      <div class="demo-row"><input class="demo-input demo-half" placeholder="Marzo"><input class="demo-input demo-half" type="number" placeholder="1600"></div>
+      <div class="demo-row"><input class="demo-input demo-half" placeholder="Abril"><input class="demo-input demo-half" type="number" placeholder="2400"></div>
+    </div>
+
+    <label class="demo-label">Nota de contexto (opcional)</label>
+    <textarea id="d-nota" class="demo-input" rows="2" placeholder="Ej: Abril coincidió con una feria del libro"></textarea>
+
+    <button class="btn btn-p" style="margin-top:1.2rem" onclick="generarHistoria()">Generar historia →</button>
+  </div>
+
+  <div id="d-resultado" style="max-width:800px;margin:2rem auto 0;display:none">
+    <canvas id="d-chart" height="280"></canvas>
+    <div id="d-story" class="cbox" style="margin-top:1.5rem;text-align:left"></div>
+  </div>
+</section>
 <section class="sec" id="contact">
   <div class="cbox">
     <div class="sec-lbl" style="text-align:center;margin-bottom:0.8rem">Contacto</div>
