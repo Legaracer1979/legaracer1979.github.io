@@ -369,8 +369,7 @@ function generarHistoria(){
   // Historia
   let historia = `Tu ${tipo} ${tendencia} un ${Math.abs(cambio)}% entre ${labels[0]} y ${labels[labels.length-1]}. `;
   historia += `${maxLabel} fue tu mejor momento (${max}), mientras que ${minLabel} fue el más bajo (${min}). `;
-  if(nota) historia += Como mencionaste: "${nota}".;
-
+ if(nota) historia += `Como mencionaste: "${nota}".`;
   document.getElementById('d-story').innerHTML = "📊 <strong>Tu historia</strong><br><br>" + historia;
   document.getElementById('d-resultado').style.display = "block";
 }
