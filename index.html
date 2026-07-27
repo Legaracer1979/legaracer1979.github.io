@@ -444,7 +444,12 @@ function generarHistoria(){
 
   let historia = `Tu ${tipo} ${tendenciaAjustada} un ${Math.abs(cambio)}% entre ${labels[0]} y ${labels[labels.length-1]}. `;
   historia += `${mejorLabel} fue tu mejor momento (${mejorValor}), mientras que ${peorLabel} fue el más complicado (${peorValor}). `;
- if(nota) historia += `Como mencionaste: "${nota}".`;
+  historia += `El promedio del período fue ${promedio.toFixed(0)}, con ${sobrePromedio} de ${valores.length} periodos por encima de ese nivel. `;
+  if(rachaMax >= 3){
+    historia += `Se nota una tendencia sostenida de ${rachaMax} periodos seguidos en ${rachaTipo === "subida" ? "aumento" : "descenso"}, no solo un salto puntual. `;
+  }
+  historia += `Si el patrón se mantiene, el próximo periodo rondaría los ${proyeccion}. `;
+  if(nota) historia += Como mencionaste: "${nota}".;
   document.getElementById('d-story').innerHTML = "📊 <strong>Tu historia</strong><br><br>" + historia;
   document.getElementById('d-resultado').style.display = "block";
 }
