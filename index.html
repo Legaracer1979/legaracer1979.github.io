@@ -398,9 +398,16 @@ function generarHistoria(){
     },
     plugins: [ChartDataLabels]
   });
-  // Historia
-  let historia = `Tu ${tipo} ${tendencia} un ${Math.abs(cambio)}% entre ${labels[0]} y ${labels[labels.length-1]}. `;
-  historia += `${maxLabel} fue tu mejor momento (${max}), mientras que ${minLabel} fue el más bajo (${min}). `;
+// Historia
+  const direccion = document.getElementById('d-direccion').value;
+  const mejorLabel = direccion === 'malo' ? minLabel : maxLabel;
+  const mejorValor = direccion === 'malo' ? min : max;
+  const peorLabel = direccion === 'malo' ? maxLabel : minLabel;
+  const peorValor = direccion === 'malo' ? max : min;
+  const tendenciaAjustada = direccion === 'malo' ? (cambio > 0 ? "empeoró" : cambio < 0 ? "mejoró" : "se mantuvo estable") : tendencia;
+
+  let historia = `Tu ${tipo} ${tendenciaAjustada} un ${Math.abs(cambio)}% entre ${labels[0]} y ${labels[labels.length-1]}. `;
+  historia += `${mejorLabel} fue tu mejor momento (${mejorValor}), mientras que ${peorLabel} fue el más complicado (${peorValor}). `;
  if(nota) historia += `Como mencionaste: "${nota}".`;
   document.getElementById('d-story').innerHTML = "📊 <strong>Tu historia</strong><br><br>" + historia;
   document.getElementById('d-resultado').style.display = "block";
