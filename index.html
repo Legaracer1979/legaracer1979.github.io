@@ -309,5 +309,71 @@ const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target
 document.querySelectorAll('.card,.ti').forEach(el=>{el.style.opacity=0;el.style.transition='opacity 0.6s ease';obs.observe(el);});
 </script>
 <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Flegaracer1979.github.io&label=Visitas&icon=eye&color=%2379c83d" alt="Visitas">
+<script>
+function generarHistoria(){
+  const tipo = document.getElementById('d-tipo').value || "tu negocio";
+  const objetivo = document.getElementById('d-objetivo').value || "tus datos";
+  const nota = document.getElementById('d-nota').value;
+
+  const rows = document.querySelectorAll('#d-rows .demo-row');
+  const labels = [];
+  const valores = [];
+  rows.forEach(row => {
+    const inputs = row.querySelectorAll('input');
+    const lab = inputs[0].value;
+    const val = parseFloat(inputs[1].value);
+    if(lab && !isNaN(val)){
+      labels.push(lab);
+      valores.push(val);
+    }
+  });
+
+  if(valores.length < 2){
+    alert("Ingresa al menos 2 valores para generar la historia.");
+    return;
+  }
+
+  // Cálculos
+  const max = Math.max(...valores);
+  const min = Math.min(...valores);
+  const maxLabel = labels[valores.indexOf(max)];
+  const minLabel = labels[valores.indexOf(min)];
+  const primero = valores[0];
+  const ultimo = valores[valores.length-1];
+  const cambio = (((ultimo - primero) / primero) * 100).toFixed(0);
+  const tendencia = cambio > 0 ? "creció" : cambio < 0 ? "cayó" : "se mantuvo estable";
+
+  // Gráfica
+  const ctx = document.getElementById('d-chart').getContext('2d');
+  if(window.miGrafica) window.miGrafica.destroy();
+  window.miGrafica = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: objetivo,
+        data: valores,
+        backgroundColor: labels.map((_,i) => i%2===0 ? '#00c8ff' : '#7b61ff'),
+        borderRadius: 6
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { ticks: { color: '#6b6b80' }, grid: { color: '#1e1e2e' } },
+        x: { ticks: { color: '#6b6b80' }, grid: { display: false } }
+      }
+    }
+  });
+
+  // Historia
+  let historia = `Tu ${tipo} ${tendencia} un ${Math.abs(cambio)}% entre ${labels[0]} y ${labels[labels.length-1]}. `;
+  historia += `${maxLabel} fue tu mejor momento (${max}), mientras que ${minLabel} fue el más bajo (${min}). `;
+  if(nota) historia += Como mencionaste: "${nota}".;
+
+  document.getElementById('d-story').innerHTML = "📊 <strong>Tu historia</strong><br><br>" + historia;
+  document.getElementById('d-resultado').style.display = "block";
+}
+</script>
 </body>
 </html>
