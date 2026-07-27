@@ -317,7 +317,10 @@ document.querySelectorAll('.card,.ti').forEach(el=>{el.style.opacity=0;el.style.
 </script>
 <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Flegaracer1979.github.io&label=Visitas&icon=eye&color=%2379c83d" alt="Visitas">
 <script>
+<script>
+Chart.register(ChartDataLabels);
 function generarHistoria(){
+
   const tipo = document.getElementById('d-tipo').value || "tu negocio";
   const objetivo = document.getElementById('d-objetivo').value || "tus datos";
   const nota = document.getElementById('d-nota').value;
