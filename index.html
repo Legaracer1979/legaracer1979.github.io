@@ -392,11 +392,14 @@ function generarHistoria(){
     options: {
       plugins: {
         legend: { display: esCircular, labels: { color: '#e8e8f0' } },
-        datalabels: {
-          color: esCircular ? '#0a0a0f' : '#e8e8f0',
-          font: { weight: 'bold' },
-          formatter: (value) => value
-        }
+       datalabels: {
+  color: esCircular ? '#0a0a0f' : '#e8e8f0',
+  font: { weight: 'bold', size: 12 },
+  anchor: 'end',
+  align: 'top',
+  offset: 6,
+  formatter: (value) => value
+}
       },
       scales: esCircular ? {} : {
         y: { ticks: { color: '#6b6b80' }, grid: { color: '#1e1e2e' } },
