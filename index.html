@@ -350,29 +350,43 @@ function generarHistoria(){
   const cambio = (((ultimo - primero) / primero) * 100).toFixed(0);
   const tendencia = cambio > 0 ? "creció" : cambio < 0 ? "cayó" : "se mantuvo estable";
 
-  // Gráfica
+ // Gráfica
+  const tipoGrafico = document.getElementById('d-tipo-grafico').value;
   const ctx = document.getElementById('d-chart').getContext('2d');
   if(window.miGrafica) window.miGrafica.destroy();
+
+  const esCircular = tipoGrafico === 'pie';
+  const colores = labels.map((_,i) => i%2===0 ? '#00c8ff' : '#7b61ff');
+
   window.miGrafica = new Chart(ctx, {
-    type: 'bar',
+    type: tipoGrafico,
     data: {
       labels: labels,
       datasets: [{
         label: objetivo,
         data: valores,
-        backgroundColor: labels.map((_,i) => i%2===0 ? '#00c8ff' : '#7b61ff'),
-        borderRadius: 6
+        backgroundColor: esCircular ? colores : (tipoGrafico === 'line' ? '#00c8ff' : colores),
+        borderColor: tipoGrafico === 'line' ? '#00c8ff' : undefined,
+        borderRadius: tipoGrafico === 'bar' ? 6 : 0,
+        fill: tipoGrafico === 'line' ? false : true
       }]
     },
     options: {
-      plugins: { legend: { display: false } },
-      scales: {
+      plugins: {
+        legend: { display: esCircular, labels: { color: '#e8e8f0' } },
+        datalabels: {
+          color: esCircular ? '#0a0a0f' : '#e8e8f0',
+          font: { weight: 'bold' },
+          formatter: (value) => value
+        }
+      },
+      scales: esCircular ? {} : {
         y: { ticks: { color: '#6b6b80' }, grid: { color: '#1e1e2e' } },
         x: { ticks: { color: '#6b6b80' }, grid: { display: false } }
       }
-    }
+    },
+    plugins: [ChartDataLabels]
   });
-
   // Historia
   let historia = `Tu ${tipo} ${tendencia} un ${Math.abs(cambio)}% entre ${labels[0]} y ${labels[labels.length-1]}. `;
   historia += `${maxLabel} fue tu mejor momento (${max}), mientras que ${minLabel} fue el más bajo (${min}). `;
