@@ -367,7 +367,33 @@ function generarHistoria(){
   const ultimo = valores[valores.length-1];
   const cambio = (((ultimo - primero) / primero) * 100).toFixed(0);
   const tendencia = cambio > 0 ? "creció" : cambio < 0 ? "cayó" : "se mantuvo estable";
+// Promedio y consistencia
+  const promedio = valores.reduce((a,b) => a+b, 0) / valores.length;
+  const sobrePromedio = valores.filter(v => v > promedio).length;
 
+  // Racha (tendencia sostenida)
+  let racha = 1;
+  let rachaMax = 1;
+  let rachaTipo = "";
+  for(let i=1; i<valores.length; i++){
+    if(valores[i] > valores[i-1]){
+      racha = (rachaTipo === "subida") ? racha+1 : 2;
+      rachaTipo = "subida";
+    } else if(valores[i] < valores[i-1]){
+      racha = (rachaTipo === "bajada") ? racha+1 : 2;
+      rachaTipo = "bajada";
+    } else {
+      racha = 1;
+      rachaTipo = "";
+    }
+    if(racha > rachaMax){ rachaMax = racha; }
+  }
+
+  // Proyección simple (promedio de cambio entre periodos)
+  let sumaCambios = 0;
+  for(let i=1; i<valores.length; i++){ sumaCambios += (valores[i] - valores[i-1]); }
+  const cambioPromedio = sumaCambios / (valores.length - 1);
+  const proyeccion = Math.round(ultimo + cambioPromedio);
  // Gráfica
   const tipoGrafico = document.getElementById('d-tipo-grafico').value;
   const ctx = document.getElementById('d-chart').getContext('2d');
