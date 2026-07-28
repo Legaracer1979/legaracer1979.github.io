@@ -453,20 +453,18 @@ function generarHistoria(){
     plugins: [ChartDataLabels]
   });
 // Historia
-  const direccion = document.getElementById('d-direccion').value;
-  const mejorLabel = direccion === 'malo' ? minLabel : maxLabel;
-  const mejorValor = direccion === 'malo' ? min : max;
-  const peorLabel = direccion === 'malo' ? maxLabel : minLabel;
-  const peorValor = direccion === 'malo' ? max : min;
-  const tendenciaAjustada = direccion === 'malo' ? (cambio > 0 ? "empeoró" : cambio < 0 ? "mejoró" : "se mantuvo estable") : tendencia;
+  const {picos, valles} = detectarPicosValles(valores);
+  const total = valores.reduce((a,b) => a+b, 0);
+  const puntosDestacados = direccion === 'malo' ? valles : picos;
+  const etiquetaGrupo = direccion === 'malo' ? "los momentos más bajos" : "los mejores momentos";
+  const listaPuntos = puntosDestacados.map(i => labels[i] + " (" + formatNum(valores[i]) + ", " + formatNum((valores[i]/total*100)) + "% del total)").join(", ");
 
-  let historia = "Tu " + tipo + " " + tendenciaAjustada + " un " + Math.abs(cambio) + "% entre " + labels[0] + " y " + labels[labels.length-1] + ". ";
-  historia += mejorLabel + " fue tu mejor momento (" + formatNum(mejorValor) + "), mientras que " + peorLabel + " fue el más complicado (" + formatNum(peorValor) + "). ";
+  let historia = "En " + tipo + ", " + etiquetaGrupo + " fueron: " + listaPuntos + ". ";
   historia += "El promedio del período fue " + formatNum(promedio) + ", con " + sobrePromedio + " de " + valores.length + " periodos por encima de ese nivel. ";
   if(rachaMax >= 3){
-    historia += "Se nota una tendencia sostenida de " + rachaMax + " periodos seguidos en " + (rachaTipo === "subida" ? "aumento" : "descenso") + ", no solo un salto puntual. ";
+    historia += "Se nota una tendencia sostenida de " + rachaMax + " periodos seguidos en " + (rachaTipo === "subida" ? "aumento" : "descenso") + ". ";
   }
- historia += "Si el patrón se mantiene, el próximo periodo rondaría los " + formatNum(proyeccion) + ". ";
+  historia += "Si el patrón se mantiene, el próximo periodo rondaría los " + formatNum(proyeccion) + ". ";
   if(nota) historia += "Como mencionaste: \"" + nota + "\".";
   document.getElementById('d-story').innerHTML = "📊 <strong>Tu historia</strong><br><br>" + historia;
   document.getElementById('d-resultado').style.display = "block";
