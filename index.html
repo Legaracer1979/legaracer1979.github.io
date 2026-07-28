@@ -421,10 +421,10 @@ function generarHistoria(){
        datalabels: {
   color: esCircular ? '#0a0a0f' : '#e8e8f0',
   font: { weight: 'bold', size: 12 },
-  anchor: 'end',
-  align: 'top',
-  offset: 6,
-  formatter: (value) => value
+  anchor: esCircular ? 'center' : 'end',
+  align: esCircular ? 'center' : 'top',
+  offset: esCircular ? 0 : 6,
+  formatter: (value) => formatNum(value)
 }
       },
       scales: esCircular ? {} : {
