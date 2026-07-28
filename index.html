@@ -341,19 +341,13 @@ document.querySelectorAll('.card,.ti').forEach(el=>{el.style.opacity=0;el.style.
 <script>
 
 Chart.register(ChartDataLabels);
-function detectarPicosValles(valores){
-  const picos = [];
-  const valles = [];
-  for(let i=0; i<valores.length; i++){
-    const ant = i>0 ? valores[i-1] : null;
-    const sig = i<valores.length-1 ? valores[i+1] : null;
-    let esPico, esValle;
-    if(ant===null){ esPico = valores[i]>sig; esValle = valores[i]<sig; }
-    else if(sig===null){ esPico = valores[i]>ant; esValle = valores[i]<ant; }
-    else { esPico = valores[i]>ant && valores[i]>sig; esValle = valores[i]<ant && valores[i]<sig; }
-    if(esPico) picos.push(i);
-    if(esValle) valles.push(i);
-  }
+function obtenerExtremos(valores, cantidad){
+  const indices = valores.map((v,i) => i);
+  const ordenados = indices.slice().sort((a,b) => valores[b] - valores[a]);
+  const altos = ordenados.slice(0, cantidad);
+  const bajos = ordenados.slice(-cantidad).reverse();
+  return {altos, bajos};
+}
   return {picos, valles};
 }  
 function formatNum(n){
