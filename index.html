@@ -348,10 +348,7 @@ function obtenerExtremos(valores, cantidad){
   const bajos = ordenados.slice(-cantidad).reverse();
   return {altos, bajos};
 }
-  return {picos, valles};
-}  
-function formatNum(n){
-  return Number(n).toLocaleString('es-VE', {maximumFractionDigits: 2});
+function formatNum(n){  return Number(n).toLocaleString('es-VE', {maximumFractionDigits: 2});
 }  
 function generarHistoria(){
 
