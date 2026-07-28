@@ -446,8 +446,8 @@ function generarHistoria(){
   const tendenciaAjustada = direccion === 'malo' ? (cambio > 0 ? "empeoró" : cambio < 0 ? "mejoró" : "se mantuvo estable") : tendencia;
 
   let historia = "Tu " + tipo + " " + tendenciaAjustada + " un " + Math.abs(cambio) + "% entre " + labels[0] + " y " + labels[labels.length-1] + ". ";
-  historia += mejorLabel + " fue tu mejor momento (" + mejorValor + "), mientras que " + peorLabel + " fue el más complicado (" + peorValor + "). ";
-  historia += "El promedio del período fue " + promedio.toFixed(0) + ", con " + sobrePromedio + " de " + valores.length + " periodos por encima de ese nivel. ";
+  historia += mejorLabel + " fue tu mejor momento (" + formatNum(mejorValor) + "), mientras que " + peorLabel + " fue el más complicado (" + formatNum(peorValor) + "). ";
+  historia += "El promedio del período fue " + formatNum(promedio) + ", con " + sobrePromedio + " de " + valores.length + " periodos por encima de ese nivel. ";
   if(rachaMax >= 3){
     historia += "Se nota una tendencia sostenida de " + rachaMax + " periodos seguidos en " + (rachaTipo === "subida" ? "aumento" : "descenso") + ", no solo un salto puntual. ";
   }
