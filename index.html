@@ -451,7 +451,7 @@ function generarHistoria(){
   if(rachaMax >= 3){
     historia += "Se nota una tendencia sostenida de " + rachaMax + " periodos seguidos en " + (rachaTipo === "subida" ? "aumento" : "descenso") + ", no solo un salto puntual. ";
   }
-  historia += "Si el patrón se mantiene, el próximo periodo rondaría los " + proyeccion + ". ";
+ historia += "Si el patrón se mantiene, el próximo periodo rondaría los " + formatNum(proyeccion) + ". ";
   if(nota) historia += "Como mencionaste: \"" + nota + "\".";
   document.getElementById('d-story').innerHTML = "📊 <strong>Tu historia</strong><br><br>" + historia;
   document.getElementById('d-resultado').style.display = "block";
