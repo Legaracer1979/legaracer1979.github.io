@@ -455,7 +455,7 @@ function generarHistoria(){
   });
 // Historia
   const direccion = document.getElementById('d-direccion').value;
-  const {picos, valles} = detectarPicosValles(valores);
+  const {altos: picos, bajos: valles} = obtenerExtremos(valores, 2);
   const total = valores.reduce((a,b) => a+b, 0);
   const puntosDestacados = direccion === 'malo' ? valles : picos;
   const etiquetaGrupo = direccion === 'malo' ? "los momentos más bajos" : "los mejores momentos";
