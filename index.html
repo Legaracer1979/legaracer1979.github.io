@@ -460,6 +460,7 @@ function generarHistoria(){
     plugins: [ChartDataLabels]
   });
 // Historia
+  const direccion = document.getElementById('d-direccion').value;
   const {picos, valles} = detectarPicosValles(valores);
   const total = valores.reduce((a,b) => a+b, 0);
   const puntosDestacados = direccion === 'malo' ? valles : picos;
