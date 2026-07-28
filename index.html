@@ -268,7 +268,14 @@ footer span{color:var(--accent)}
   <option value="bueno">Algo bueno (más ventas, más ganancia)</option>
   <option value="malo">Algo malo (más pérdidas, más gasto)</option>
 </select>
-    <label class="demo-label">Tipo de gráfico</label>
+
+<label class="demo-label">¿Cómo se relacionan tus datos?</label>
+<select id="d-tipo-datos" class="demo-input">
+  <option value="temporal">Son de distintos momentos (meses, semanas, años)</option>
+  <option value="categorico">Son cosas distintas sin orden (productos, sabores, sucursales)</option>
+</select>
+
+<label class="demo-label">Tipo de gráfico</label>
 <select id="d-tipo-grafico" class="demo-input">
   <option value="bar">Barras verticales</option>
   <option value="pie">Torta</option>
