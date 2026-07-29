@@ -454,11 +454,12 @@ function generarHistoria(){
   const direccion = document.getElementById('d-direccion').value;
   const {altos: picos, bajos: valles} = obtenerExtremos(valores, 2);
   const total = valores.reduce((a,b) => a+b, 0);
-  const puntosDestacados = direccion === 'malo' ? valles : picos;
-  const etiquetaGrupo = direccion === 'malo' ? "los momentos más bajos" : "los mejores momentos";
-  const listaPuntos = puntosDestacados.map(i => labels[i] + " (" + formatNum(valores[i]) + ", " + formatNum((valores[i]/total*100)) + "% del total)").join(", ");
+    const mejoresPuntos = direccion === 'malo' ? valles : picos;
+    const peoresPuntos = direccion === 'malo' ? picos : valles;
+    const listaMejores = mejoresPuntos.map(i => labels[i] + " (" + formatNum(valores[i]) + ", " + formatNum((valores[i]/total*100)) + "% del total)").join(", ");
+    const listaPeores = peoresPuntos.map(i => labels[i] + " (" + formatNum(valores[i]) + ", " + formatNum((valores[i]/total*100)) + "% del total)").join(", ");
 
-  let historia = "Analizando " + objetivo + " en " + tipo + ", " + etiquetaGrupo + " fueron: " + listaPuntos + ". ";
+    let historia = "Analizando " + objetivo + " en " + tipo + ", tus mejores momentos fueron: " + listaMejores + ". Los más complicados fueron: " + listaPeores + ". ";
   historia += "El promedio del período fue " + formatNum(promedio) + ", con " + sobrePromedio + " de " + valores.length + " periodos por encima de ese nivel. ";
   if(rachaMax >= 3){
     historia += "Se nota una tendencia sostenida de " + rachaMax + " periodos seguidos en " + (rachaTipo === "subida" ? "aumento" : "descenso") + ". ";
