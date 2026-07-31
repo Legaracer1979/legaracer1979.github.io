@@ -433,74 +433,62 @@ function generarHistoria(){
   for(let i=1; i<valores.length; i++){ sumaCambios += (valores[i] - valores[i-1]); }
   const cambioPromedio = sumaCambios / (valores.length - 1);
   const proyeccion = Math.round(ultimo + cambioPromedio);
- //// Gráfica o tabla
-const tipoGrafico = document.getElementById('d-tipo-grafico').value;
-const canvas = document.getElementById('d-chart');
-const tablaContainer = document.getElementById('d-tabla-container');
+ // Gráfica o tabla
+  const tipoGrafico = document.getElementById('d-tipo-grafico').value;
+  const canvas = document.getElementById('d-chart');
+  const tablaContainer = document.getElementById('d-tabla-container');
 
-// Destruir la instancia previa si existe
-if (window.miGrafica) {
-  window.miGrafica.destroy();
-}
+  if (window.miGrafica) {
+    window.miGrafica.destroy();
+  }
 
-if (tipoGrafico === 'tabla') {
-  canvas.style.display = 'none';
-  tablaContainer.style.display = 'block';
-  // (el contenido de la tabla lo generamos en el próximo paso)
-} else {
-  canvas.style.display = 'block';
-  tablaContainer.style.display = 'none';
-  const ctx = canvas.getContext('2d');
+  if (tipoGrafico === 'tabla') {
+    canvas.style.display = 'none';
+    tablaContainer.style.display = 'block';
+    // (el contenido de la tabla lo generamos en el próximo paso)
+  } else {
+    canvas.style.display = 'block';
+    tablaContainer.style.display = 'none';
+    const ctx = canvas.getContext('2d');
 
-  const esCircular = tipoGrafico === 'pie' || tipoGrafico === 'doughnut';
-  const colores = labels.map((_, i) => (i % 2 === 0 ? '#00c8ff' : '#7b61ff'));
+    const esCircular = tipoGrafico === 'pie' || tipoGrafico === 'doughnut';
+    const colores = labels.map((_, i) => (i % 2 === 0 ? '#00c8ff' : '#7b61ff'));
 
-  // Construcción de la instancia de Chart
-  window.miGrafica = new Chart(ctx, {
-    type: tipoGrafico,
-    data: {
-      labels: labels,
-      datasets: [
-        {
+    window.miGrafica = new Chart(ctx, {
+      type: tipoGrafico,
+      data: {
+        labels: labels,
+        datasets: [{
           label: objetivo,
           data: valores,
-          backgroundColor: esCircular
-            ? colores
-            : tipoGrafico === 'line'
-            ? '#00c8ff'
-            : colores,
+          backgroundColor: esCircular ? colores : (tipoGrafico === 'line' ? '#00c8ff' : colores),
           borderColor: tipoGrafico === 'line' ? '#00c8ff' : undefined,
           borderRadius: tipoGrafico === 'bar' ? 6 : undefined,
           fill: tipoGrafico !== 'line'
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false
-    }
-  });
-}
-  
-    options: {
-      plugins: {
-        legend: { display: esCircular, labels: { color: '#e8e8f0' } },
-       datalabels: {
-  color: esCircular ? '#0a0a0f' : '#e8e8f0',
-  font: { weight: 'bold', size: 12 },
-  anchor: esCircular ? 'center' : 'end',
-  align: esCircular ? 'center' : 'top',
-  offset: esCircular ? 0 : 6,
-  formatter: (value) => formatNum(value)
-}
+        }]
       },
-      scales: esCircular ? {} : {
-        y: { ticks: { color: '#6b6b80' }, grid: { color: '#1e1e2e' } },
-        x: { ticks: { color: '#6b6b80' }, grid: { display: false } }
-      }
-    },
-    plugins: [ChartDataLabels]
-  });
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: esCircular, labels: { color: '#e8e8f0' } },
+          datalabels: {
+            color: esCircular ? '#0a0a0f' : '#e8e8f0',
+            font: { weight: 'bold', size: 12 },
+            anchor: esCircular ? 'center' : 'end',
+            align: esCircular ? 'center' : 'top',
+            offset: esCircular ? 0 : 6,
+            formatter: (value) => formatNum(value)
+          }
+        },
+        scales: esCircular ? {} : {
+          y: { ticks: { color: '#6b6b80' }, grid: { color: '#1e1e2e' } },
+          x: { ticks: { color: '#6b6b80' }, grid: { display: false } }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+  }
 // Historia
   const direccion = document.getElementById('d-direccion').value;
   const {altos: picos, bajos: valles} = obtenerExtremos(valores, 2);
