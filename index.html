@@ -445,7 +445,50 @@ function generarHistoria(){
   if (tipoGrafico === 'tabla') {
     canvas.style.display = 'none';
     tablaContainer.style.display = 'block';
-    // (el contenido de la tabla lo generamos en el próximo paso)
+    const total = valores.reduce((a,b) => a+b, 0);
+    let datos = labels.map((lab,i) => ({
+      periodo: lab,
+      valor: valores[i],
+      pct: (valores[i]/total*100),
+      vsProm: valores[i] - promedio
+    }));
+
+    function renderTabla(lista, colOrden, asc){
+      const cols = [
+        {key:'periodo', label:'Periodo/Categoría'},
+        {key:'valor', label:'Valor'},
+        {key:'pct', label:'% del total'},
+        {key:'vsProm', label:'Vs. promedio'}
+      ];
+      let html = '<table style="width:100%;border-collapse:collapse;font-size:0.85rem">';
+      html += '<thead><tr>';
+      cols.forEach(c => {
+        const flecha = colOrden === c.key ? (asc ? ' ▲' : ' ▼') : '';
+        html += '<th data-col="' + c.key + '" style="cursor:pointer;padding:0.6rem;border-bottom:1px solid #1e1e2e;text-align:left;color:#00c8ff">' + c.label + flecha + '</th>';
+      });
+      html += '</tr></thead><tbody>';
+      lista.forEach(d => {
+        html += '<tr>';
+        html += '<td style="padding:0.6rem;border-bottom:1px solid #1e1e2e">' + d.periodo + '</td>';
+        html += '<td style="padding:0.6rem;border-bottom:1px solid #1e1e2e">' + formatNum(d.valor) + '</td>';
+        html += '<td style="padding:0.6rem;border-bottom:1px solid #1e1e2e">' + formatNum(d.pct) + '%</td>';
+        html += '<td style="padding:0.6rem;border-bottom:1px solid #1e1e2e">' + (d.vsProm >= 0 ? '+' : '') + formatNum(d.vsProm) + '</td>';
+        html += '</tr>';
+      });
+      html += '</tbody></table>';
+      tablaContainer.innerHTML = html;
+      tablaContainer.querySelectorAll('th').forEach(th => {
+        th.onclick = function(){
+          const col = th.getAttribute('data-col');
+          const nuevoAsc = tablaContainer.dataset.ordenCol === col ? tablaContainer.dataset.asc !== 'true' : true;
+          const ordenado = lista.slice().sort((a,b) => nuevoAsc ? (a[col] > b[col] ? 1 : -1) : (a[col] < b[col] ? 1 : -1));
+          tablaContainer.dataset.ordenCol = col;
+          tablaContainer.dataset.asc = nuevoAsc;
+          renderTabla(ordenado, col, nuevoAsc);
+        };
+      });
+    }
+    renderTabla(datos, null, true);
   } else {
     canvas.style.display = 'block';
     tablaContainer.style.display = 'none';
