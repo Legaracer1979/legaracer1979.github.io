@@ -433,38 +433,55 @@ function generarHistoria(){
   for(let i=1; i<valores.length; i++){ sumaCambios += (valores[i] - valores[i-1]); }
   const cambioPromedio = sumaCambios / (valores.length - 1);
   const proyeccion = Math.round(ultimo + cambioPromedio);
- // Gráfica o tabla
-  const tipoGrafico = document.getElementById('d-tipo-grafico').value;
-  const canvas = document.getElementById('d-chart');
-  const tablaContainer = document.getElementById('d-tabla-container');
+ //// Gráfica o tabla
+const tipoGrafico = document.getElementById('d-tipo-grafico').value;
+const canvas = document.getElementById('d-chart');
+const tablaContainer = document.getElementById('d-tabla-container');
 
-  if(window.miGrafica) window.miGrafica.destroy();
+// Destruir la instancia previa si existe
+if (window.miGrafica) {
+  window.miGrafica.destroy();
+}
 
-  if(tipoGrafico === 'tabla'){
-    canvas.style.display = 'none';
-    tablaContainer.style.display = 'block';
-    // (el contenido de la tabla lo generamos en el próximo paso)
-  } else {
-    canvas.style.display = 'block';
-    tablaContainer.style.display = 'none';
-    const ctx = canvas.getContext('2d');
+if (tipoGrafico === 'tabla') {
+  canvas.style.display = 'none';
+  tablaContainer.style.display = 'block';
+  // (el contenido de la tabla lo generamos en el próximo paso)
+} else {
+  canvas.style.display = 'block';
+  tablaContainer.style.display = 'none';
+  const ctx = canvas.getContext('2d');
 
   const esCircular = tipoGrafico === 'pie' || tipoGrafico === 'doughnut';
-  const colores = labels.map((_,i) => i%2===0 ? '#00c8ff' : '#7b61ff');
+  const colores = labels.map((_, i) => (i % 2 === 0 ? '#00c8ff' : '#7b61ff'));
 
+  // Construcción de la instancia de Chart
   window.miGrafica = new Chart(ctx, {
     type: tipoGrafico,
     data: {
       labels: labels,
-      datasets: [{
-        label: objetivo,
-        data: valores,
-        backgroundColor: esCircular ? colores : (tipoGrafico === 'line' ? '#00c8ff' : colores),
-        borderColor: tipoGrafico === 'line' ? '#00c8ff' : undefined,
-        borderRadius: tipoGrafico === 'bar' ? 6 : 0,
-        fill: tipoGrafico === 'line' ? false : true
-      }]
+      datasets: [
+        {
+          label: objetivo,
+          data: valores,
+          backgroundColor: esCircular
+            ? colores
+            : tipoGrafico === 'line'
+            ? '#00c8ff'
+            : colores,
+          borderColor: tipoGrafico === 'line' ? '#00c8ff' : undefined,
+          borderRadius: tipoGrafico === 'bar' ? 6 : undefined,
+          fill: tipoGrafico !== 'line'
+        }
+      ]
     },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  });
+}
+  
     options: {
       plugins: {
         legend: { display: esCircular, labels: { color: '#e8e8f0' } },
