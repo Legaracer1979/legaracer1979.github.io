@@ -110,6 +110,69 @@ footer span{color:var(--accent)}
 </section>
 
 </body>
+
+  <script>
+async function obtenerTasaBCV() {
+  try {
+    const res = await fetch('https://pydolarve.org/api/v1/dollar?page=bcv');
+    const data = await res.json();
+    return data.monitors.usd.price;
+  } catch (e) {
+    const manual = prompt('No se pudo obtener la tasa BCV automáticamente. Escribe la tasa de hoy (Bs por $):');
+    return parseFloat(manual);
+  }
+}
+
+function formatNum(num) {
+  return num.toLocaleString('es-VE', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+}
+
+async function guardarProducto() {
+  const nombre = document.getElementById('p-nombre').value.trim();
+  const marca = document.getElementById('p-marca').value.trim();
+  const peso = document.getElementById('p-peso').value.trim();
+  const fecha = document.getElementById('p-fecha').value;
+  const precioInput = parseFloat(document.getElementById('p-precio').value);
+  const moneda = document.getElementById('p-moneda').value;
+  const pago = document.getElementById('p-pago').value;
+  const cuota = document.getElementById('p-cuota').value;
+
+  if (!nombre || !fecha || isNaN(precioInput)) {
+    alert('Por favor completa al menos nombre, fecha y precio.');
+    return;
+  }
+
+  const tasaBCV = await obtenerTasaBCV();
+
+  let precioUSD, precioBS;
+  if (moneda === 'USD') {
+    precioUSD = precioInput;
+    precioBS = precioInput * tasaBCV;
+  } else {
+    precioBS = precioInput;
+    precioUSD = precioInput / tasaBCV;
+  }
+
+  const nuevoRegistro = {
+    nombre, marca, peso, fecha,
+    precioUSD, precioBS, tasaBCV,
+    pago, cuota: pago === 'cashea' ? cuota : null
+  };
+
+  let datos = JSON.parse(localStorage.getItem('precios-luis') || '[]');
+
+  const anterior = datos
+    .filter(p => p.nombre.toLowerCase() === nombre.toLowerCase() && p.marca.toLowerCase() === marca.toLowerCase())
+    .sort((a,b) => new Date(b.fecha) - new Date(a.fecha))[0];
+
+  datos.push(nuevoRegistro);
+  localStorage.setItem('precios-luis', JSON.stringify(datos));
+
+  mostrarResultado(nuevoRegistro, anterior);
+
+  document.getElementById('p-nombre').value = '';
+  document.getElementById('p-marca').value = '
+  
 </html>
 </section>
 
